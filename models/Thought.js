@@ -1,8 +1,12 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require('dateformat')
 
 const reactionSchema = new mongoose.Schema({
     reactionId: { 
         type: Schema.Types.ObjectId, 
+        default: function() {
+            return new mongoose.Types.ObjectId()
+          },
         required: true 
     },
     reactionBody: { 
@@ -17,6 +21,9 @@ const reactionSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+        get: (createdAt) => {
+            return dateFormat(createdAt, 'mm/dd/yyyy h:MM TT');
+          },
     },
   });
 
@@ -32,6 +39,9 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
+            get: (createdAt) => {
+                return dateFormat(createdAt, 'mm/dd/yyyy h:MM TT');
+              },
         },
         username: {
             type: String,
@@ -56,6 +66,6 @@ thoughtSchema
   });
 
 // Initialize our Post model
-const Post = model('post', postSchema);
+const Thought = model('thought', thoughtSchema);
 
-module.exports = Post;
+module.exports = Thought;
