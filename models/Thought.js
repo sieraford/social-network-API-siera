@@ -1,12 +1,11 @@
-const { Schema, model } = require('mongoose');
-const dateFormat = require('dateformat')
+const { Types, Schema, model } = require('mongoose');
+const dayjs = require('dayjs')
 
-const reactionSchema = new mongoose.Schema({
+
+const reactionSchema = new Schema({
     reactionId: { 
         type: Schema.Types.ObjectId, 
-        default: function() {
-            return new mongoose.Types.ObjectId()
-          },
+        default: () => new Types.ObjectId(),
         required: true 
     },
     reactionBody: { 
@@ -22,7 +21,7 @@ const reactionSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
         get: (createdAt) => {
-            return dateFormat(createdAt, 'mm/dd/yyyy h:MM TT');
+            return dayjs(createdAt).format('MM/DD/YYYY h:MM A');
           },
     },
   });
@@ -40,8 +39,8 @@ const thoughtSchema = new Schema(
             type: Date,
             default: Date.now,
             get: (createdAt) => {
-                return dateFormat(createdAt, 'mm/dd/yyyy h:MM TT');
-              },
+                return dayjs(createdAt).format('MM/DD/YYYY h:MM A');
+            },
         },
         username: {
             type: String,
