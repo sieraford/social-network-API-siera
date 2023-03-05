@@ -24,6 +24,11 @@ const reactionSchema = new Schema({
             return dayjs(createdAt).format('MM/DD/YYYY h:MM A');
           },
     },
+  },
+  {
+    toJSON: {
+        getters: true,
+      }
   });
 
 // Construct a new instance of the schema class
@@ -51,6 +56,7 @@ const thoughtSchema = new Schema(
     {
         toJSON: {
           virtuals: true,
+          getters: true,
         },
         id: false,
       }
